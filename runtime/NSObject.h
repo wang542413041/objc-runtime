@@ -83,12 +83,17 @@ OBJC_EXPORT
 + (BOOL)conformsToProtocol:(Protocol *)protocol;
 - (IMP)methodForSelector:(SEL)aSelector;
 + (IMP)instanceMethodForSelector:(SEL)aSelector;
+
+// 确认无法响应抛出异常
 - (void)doesNotRecognizeSelector:(SEL)aSelector;
 
+// 消息转发第二道：将消息转发给能行的人
 - (id)forwardingTargetForSelector:(SEL)aSelector OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
-- (void)forwardInvocation:(NSInvocation *)anInvocation OBJC_SWIFT_UNAVAILABLE("");
-- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector OBJC_SWIFT_UNAVAILABLE("");
 
+// 消息转发第三部
+- (void)forwardInvocation:(NSInvocation *)anInvocation OBJC_SWIFT_UNAVAILABLE("");
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector OBJC_SWIFT_UNAVAILABLE("");
 + (NSMethodSignature *)instanceMethodSignatureForSelector:(SEL)aSelector OBJC_SWIFT_UNAVAILABLE("");
 
 - (BOOL)allowsWeakReference UNAVAILABLE_ATTRIBUTE;
@@ -96,8 +101,9 @@ OBJC_EXPORT
 
 + (BOOL)isSubclassOfClass:(Class)aClass;
 
-+ (BOOL)resolveClassMethod:(SEL)sel OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
-+ (BOOL)resolveInstanceMethod:(SEL)sel OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
+// 消息转发的第一道
++ (BOOL)resolveClassMethod:(SEL)sel OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0); // 类方法
++ (BOOL)resolveInstanceMethod:(SEL)sel OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0); // 实例方法、对象方法
 
 + (NSUInteger)hash;
 + (Class)superclass;
