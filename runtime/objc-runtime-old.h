@@ -179,7 +179,7 @@ struct old_property_list {
     struct old_property first;
 };
 
-
+// 旧版本Objc_object原型
 struct objc_class : objc_object {
     Class superclass;
     const char *name;
